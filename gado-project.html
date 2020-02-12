@@ -48,7 +48,7 @@
 <div class="bg">
     <div class="gado-text">
       <h1>Welcome to Gado O'Clock</h1>
-      <p>Descubra quanto tempo até a cremosa voltar:</p>
+      <p>Descubra quanto tempo até o reencontro com a cremosa:</p>
       <!-- Display the countdown timer in an element -->
       <h3 id="gado"></h3>
       <p>Enquanto ela não volta...</p>
@@ -60,17 +60,25 @@
 </div>
 
 <script>
-// Set the date we're counting down to
-var countDownDate = new Date("Feb 26, 2020 06:55:00").getTime();
 
-// Update the count down every 1 second
-var x = setInterval(function() {
+  // Get user's timezone offset in milliseconds
+  var d = new Date();
+  var timezone = d.getTimezoneOffset() * 60 * 1000;
+
+  // Timezone offset of the date that we are counting down to in milliseconds
+  var settimezone = 3 * 60 * 60 * 1000;
+
+  // Set the date we're counting down to
+  var countDownDate = new Date("Feb 27, 2020 14:15:00").getTime();
+
+  // Update the count down every 1 second
+  var x = setInterval(function() {
 
   // Get today's date and time
   var now = new Date().getTime();
 
-  // Find the distance between now and the count down date
-  var distance = countDownDate - now;
+  // Find the distance between now and the count down date minus the timezone
+  var distance = (countDownDate - now) + (timezone - settimezone);
 
   // Time calculations for days, hours, minutes and seconds
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -78,16 +86,17 @@ var x = setInterval(function() {
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-  // Display the result in the element with id="demo"
+  // Display the result in the element with id="gado"
   document.getElementById("gado").innerHTML ="<strong>" + days + "d " + hours + "h "
   + minutes + "m " + seconds + "s " + "</strong>";
 
   // If the count down is finished, write some text
   if (distance < 0) {
     clearInterval(x);
-    document.getElementById("gado").innerHTML = "Chegou Porra!";
+    document.getElementById("gado").innerHTML = "<h1>Chegou Porra!</h1>";
   }
-}, 1000);
+  }, 1000);
+
 </script>
 
 </body>
